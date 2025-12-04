@@ -1,5 +1,5 @@
 import pytest
-from invalid_id import get_invalid_ids
+from invalid_id import get_invalid_ids_part_1
 
 
 @pytest.mark.parametrize("input_list, expected_output", [
@@ -15,4 +15,4 @@ from invalid_id import get_invalid_ids
 
 
 def test(input_list, expected_output):
-    assert get_invalid_ids(input_list) == expected_output
+    assert get_invalid_ids_part_1(input_list) == expected_output
