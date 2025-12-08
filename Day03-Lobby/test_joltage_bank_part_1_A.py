@@ -11,4 +11,4 @@ from joltage_bank import calculate_highest_joltage
 
 
 def test(input_list, expected_output):
-    assert calculate_highest_joltage(input_list) == expected_output
+    assert calculate_highest_joltage(input_list, 2) == expected_output
