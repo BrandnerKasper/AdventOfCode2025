@@ -6,22 +6,6 @@ def parse_joltage_banks(file: str) -> list[str]:
     return banks
 
 
-# def calculate_highest_joltage_part_1(bank: str) -> int:
-#     nums = [int(num) for num in bank]
-#     first = 0
-#     first_idx = 0
-#     for i in range(0, len(nums)-1):
-#         if nums[i] > first:
-#             first = nums[i]
-#             first_idx = i
-#     second = 0
-#     for i in range(first_idx+1, len(nums)):
-#         n = nums[i]
-#         if n > second:
-#             second = n
-#     return first * 10 + second
-
-
 def calculate_highest_joltage(bank: str, max_digits: int) -> int:
     nums = [int(num) for num in bank]
     digits = []
