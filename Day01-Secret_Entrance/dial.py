@@ -47,7 +47,7 @@ def dial_count_zero(rotations: list[str]) -> int:
         n = n - int(n / 100) * 100
         if d + n > 100:
             c_r += 1
-        elif d + n < 0 and d is not 0:
+        elif d + n < 0 and d != 0:
             c_r += 1
         c += c_r
         d = (d + n) % 100
