@@ -8,32 +8,20 @@ def parse_id_ranges(file: str) -> list[str]:
     return id_ranges
 
 
-def get_invalid_ids_part_1(id_range: str) -> list[int]:
-    start, end = id_range.split("-")
-    start, end = int(start), int(end)
-    invalid_ids = []
-    for ID in range(start, end+1):
-        id_str = str(ID)
-        c = 1
-        while c != len(id_str):
-            sub, rest = id_str[:c], id_str[c:]
-            if sub == rest:
-                invalid_ids.append(ID)
-            c += 1
-    return invalid_ids
-
-
-def get_invalid_ids_part_2(id_range: str) -> list[int]:
+def get_invalid_ids(id_range: str, part_1: bool) -> list[int]:
     start, end = id_range.split("-")
     start, end = int(start), int(end)
     invalid_ids = set()
-    for ID in range(start, end+1):
+    if part_1:
+        check = lambda s, r: s == r
+    else:
+        check = lambda s, r: re.sub(s, '', r) == ""
+    for ID in range(start, end + 1):
         id_str = str(ID)
         c = 1
         while c != len(id_str):
             sub, rest = id_str[:c], id_str[c:]
-            pattern = re.sub(sub, '', rest)
-            if pattern == "":
+            if check(sub, rest):
                 invalid_ids.add(ID)
             c += 1
     invalid_ids = list(invalid_ids)
@@ -41,20 +29,10 @@ def get_invalid_ids_part_2(id_range: str) -> list[int]:
     return invalid_ids
 
 
-def sum_invalid_ids_part_1(id_ranges: list[str]) -> int:
+def sum_invalid_ids(id_ranges: list[str], part_1: bool) -> int:
     s = 0
     for id_range in id_ranges:
-        invalid_ids = get_invalid_ids_part_1(id_range)
-        print(f"Range {id_range} has {len(invalid_ids)} IDs: [{"".join(f"{str(ID),}" for ID in invalid_ids)}]")
-        for invalid_id in invalid_ids:
-            s += invalid_id
-    return s
-
-
-def sum_invalid_ids_part_2(id_ranges: list[str]) -> int:
-    s = 0
-    for id_range in id_ranges:
-        invalid_ids = get_invalid_ids_part_2(id_range)
+        invalid_ids = get_invalid_ids(id_range, part_1)
         print(f"Range {id_range} has {len(invalid_ids)} IDs: [{"".join(f"{str(ID),}" for ID in invalid_ids)}]")
         for invalid_id in invalid_ids:
             s += invalid_id
@@ -64,7 +42,7 @@ def sum_invalid_ids_part_2(id_ranges: list[str]) -> int:
 def main() -> None:
     f = "id_ranges.txt"
     id_ranges = parse_id_ranges(f)
-    print(f"The sum of all these invalid IDs is: {sum_invalid_ids_part_2(id_ranges)}")
+    print(f"The sum of all these invalid IDs is: {sum_invalid_ids(id_ranges, False)}")
 
 
 if __name__ == "__main__":
