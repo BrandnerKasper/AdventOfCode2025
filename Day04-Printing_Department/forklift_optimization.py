@@ -77,6 +77,23 @@ def fork_optimization(grid: str) -> int:
     return count
 
 
+def fork_clean_up(grid: str) -> int:
+    total = 0
+    removed = True
+    while removed:
+        grid = turn_str_into_grid(grid)
+        grid = mark(grid)
+        grid = turn_grid_into_str(grid)
+        count = count_x(grid)
+        total += count
+        if count == 0:
+            removed = False
+        print(f"Removed {count} roll(s) of paper.")
+        print(grid)
+        grid = grid.replace("x", ".")
+    return total
+
+
 def parse_forklift_map(file: str) -> str:
     s = ""
     with open(file, "r") as f:
@@ -89,6 +106,7 @@ def main() -> None:
     file = "forklift.txt"
     m = parse_forklift_map(file)
     print(f"Number of optimizations: {fork_optimization(m)}")
+    print(f"Total number of optimization with cleanup in mind: {fork_clean_up(m)}")
 
 
 if __name__ == "__main__":

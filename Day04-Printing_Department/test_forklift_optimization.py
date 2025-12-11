@@ -1,5 +1,5 @@
 import pytest
-from forklift_optimization import turn_str_into_grid, mark, turn_grid_into_str, count_x, fork_optimization
+from forklift_optimization import turn_str_into_grid, mark, turn_grid_into_str, count_x, fork_optimization, fork_clean_up
 
 
 @pytest.mark.parametrize("input_list, expected_output", [
@@ -131,3 +131,19 @@ def test_count_x(input_list, expected_output):
 ])
 def test_fork_optimization(input_list, expected_output):
     assert fork_optimization(input_list) == expected_output
+
+
+@pytest.mark.parametrize("input_list, expected_output", [
+    ("""..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.""", 43)
+])
+def test_fork_optimization(input_list, expected_output):
+    assert fork_clean_up(input_list) == expected_output
